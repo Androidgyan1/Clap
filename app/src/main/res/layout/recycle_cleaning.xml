@@ -1,0 +1,32 @@
+<androidx.cardview.widget.CardView
+    android:layout_width="200dp"
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingRight="5dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:id="@+id/card_recyclebest"
+    app:cardElevation="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/cleaningimage"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:src="@drawable/best_one"></ImageView>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
