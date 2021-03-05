@@ -11,36 +11,40 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginScreen"></activity>
-        <activity android:name=".OtpScreen"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Register"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Payment"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Cleaning"
+        <activity android:name=".ThankYou"></activity>
+        <activity android:name=".DetailsScreen" />
+        <activity android:name=".LoginScreen" />
+        <activity
+            android:name=".OtpScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Payment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Cleaning"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
-                    </activity>
-        <activity android:name=".SplashScreen"
-            android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".HomeScreen"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
-
-            android:screenOrientation="portrait">
-
-        </activity>
+        <activity
+            android:name=".HomeScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

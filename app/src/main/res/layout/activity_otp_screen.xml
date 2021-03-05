@@ -83,8 +83,8 @@
 
             <Button
                 android:layout_width="match_parent"
+                android:id="@+id/confirm"
                 android:layout_height="wrap_content"
-                android:onClick="verifaction"
                 android:background="@drawable/button_bg"
                 android:textColor="@android:color/white"
                 android:text="Continue"

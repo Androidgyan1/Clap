@@ -5,20 +5,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Adapter;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import technomind.in.Adapter.CleaningAdapter;
 import technomind.in.Adapter.CleaningSecondAdapter;
+import technomind.in.Config.Config;
 import technomind.in.Model.CleaningSecond;
 
 
 public class Cleaning extends AppCompatActivity {
 
-    RecyclerView cleaning,cleaningsecond;
+    RecyclerView cleaning,recyclerView;
     List<technomind.in.Model.Cleaning> cleaningList;
-    List<CleaningSecond> cleaningSecondList;
+
+
+    List<CleaningSecond> songs;
+    Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +43,14 @@ public class Cleaning extends AppCompatActivity {
         setContentView(R.layout.activity_cleaning);
 
         cleaning =findViewById(R.id.recycle_cleaning);
-        cleaningsecond =findViewById(R.id.recycle_cleaningsecond);
+        recyclerView =findViewById(R.id.recycle_cleaningsecond);
 
         cleaningList = new ArrayList<>();
+//second
+        songs = new ArrayList<>();
 
-        cleaningSecondList = new ArrayList<>();
+        extractCleaning();
+
 
 
         cleaningList.add(new technomind.in.Model.Cleaning(R.drawable.best_one));
@@ -44,20 +64,42 @@ public class Cleaning extends AppCompatActivity {
         cleaning.setAdapter(adaptorbest);
 
 
-        ////second Adapter
+        ////second Adapte
+    }
 
-        cleaningSecondList.add(new CleaningSecond(R.drawable.bathroom_cleaning,"Professional Bathroom Cleaning"));
-        cleaningSecondList.add(new CleaningSecond(R.drawable.residintal_cleaning,"Professional Full Home"));
-        cleaningSecondList.add(new CleaningSecond(R.drawable.professional_cleaning,"Professional Sofa Cleaning"));
-        cleaningSecondList.add(new CleaningSecond(R.drawable.unnamed,"Professional Kietchan Cleaning"));
-        cleaningSecondList.add(new CleaningSecond(R.drawable.pro_clean,"Professional Office Cleaning"));
-        final LinearLayoutManager managerbestSecondCleaning = new LinearLayoutManager(this);
-        managerbestSecondCleaning.setOrientation(LinearLayoutManager.VERTICAL);
-        cleaningsecond.setLayoutManager(managerbestSecondCleaning);
+    private void extractCleaning() {
 
-        CleaningSecondAdapter adaptorbestSecondAdapter = new CleaningSecondAdapter(this,cleaningSecondList);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Config.JSON_URLCleaning, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject songObject = response.getJSONObject(i);
 
-        cleaningsecond.setAdapter(adaptorbestSecondAdapter);
+                        CleaningSecond song = new CleaningSecond();
+                        song.setName(songObject.getString("song").toString());
+                        song.setImage(songObject.getInt("cover_image"));
+                        songs.add(song);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                CleaningSecondAdapter cleaningSecondAdapter = new CleaningSecondAdapter(getApplicationContext(),songs);
+                recyclerView.setAdapter( cleaningSecondAdapter);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("tag", "onErrorResponse: " + error.getMessage());
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+
 
     }
 }

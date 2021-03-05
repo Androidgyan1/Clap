@@ -5,7 +5,7 @@ public class CleaningSecond {
     int image;
     String name;
 
-    public CleaningSecond(int image, String name) {
+    public CleaningSecond() {
         this.image = image;
         this.name = name;
     }

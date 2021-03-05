@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import technomind.in.Model.BestOffer;
@@ -16,11 +18,11 @@ import technomind.in.R;
 
 public class BestAdapter extends RecyclerView.Adapter<BestAdapter.MyViewHolder> {
 
-    private Context context;
+    LayoutInflater inflater;
     private List<BestOffer> best;
 
-    public BestAdapter(Context context, List<BestOffer> best) {
-        this.context = context;
+    public BestAdapter(Context ctx, List<BestOffer> best) {
+        this.inflater = LayoutInflater.from(ctx);
         this.best = best;
     }
 
@@ -37,16 +39,16 @@ public class BestAdapter extends RecyclerView.Adapter<BestAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.best_offers,parent,false);
+        View view = inflater.inflate(R.layout.best_offers,parent,false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         BestOffer app = best.get(position);
 
-        holder.mImage.setImageResource(app.getImage());
+        Picasso.get().load(best.get(position).getImage()).into(holder.mImage);
 
     }
 

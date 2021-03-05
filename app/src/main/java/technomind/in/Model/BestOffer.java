@@ -3,7 +3,8 @@ package technomind.in.Model;
 public class BestOffer {
     int image;
 
-    public BestOffer(int image) {
+
+    public BestOffer() {
         this.image = image;
     }
 
